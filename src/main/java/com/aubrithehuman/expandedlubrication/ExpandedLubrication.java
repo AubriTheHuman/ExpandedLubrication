@@ -117,19 +117,19 @@ public class ExpandedLubrication
     }
     
     public void loadComplete(FMLLoadCompleteEvent event){
-    	LubricatedHandler.registerLubricatedTile(MixerTileEntity.class, MixerLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(ArcFurnaceTileEntity.class, ArcFurnaceLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(AutoWorkbenchTileEntity.class, AutoWorkbenchLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(CokerUnitTileEntity.class, CokerLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(DistillationTowerTileEntity.class, DistillationTowerLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(FermenterTileEntity.class, FermenterLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(MetalPressTileEntity.class, PressLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(RefineryTileEntity.class, RefineryLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(SqueezerTileEntity.class, SqueezerLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(HydrotreaterTileEntity.class, HydroTreaterLubricationHandler::new);
-		LubricatedHandler.registerLubricatedTile(CrusherTileEntity.class, CrusherLubricationHandlerEL::new);
-		LubricatedHandler.registerLubricatedTile(ExcavatorTileEntity.class, ExcavatorLubricationHandlerEL::new);
-		LubricatedHandler.registerLubricatedTile(PumpjackTileEntity.class, PumpjackLubricationHandlerEL::new);
+    	if(ELConfig.doArcFurnace.get()) LubricatedHandler.registerLubricatedTile(ArcFurnaceTileEntity.class, ArcFurnaceLubricationHandler::new);
+    	if(ELConfig.doAutoEngineerWorkbench.get()) LubricatedHandler.registerLubricatedTile(AutoWorkbenchTileEntity.class, AutoWorkbenchLubricationHandler::new);
+    	if(ELConfig.doCoker.get()) LubricatedHandler.registerLubricatedTile(CokerUnitTileEntity.class, CokerLubricationHandler::new);
+    	if(ELConfig.doDistillationTower.get()) LubricatedHandler.registerLubricatedTile(DistillationTowerTileEntity.class, DistillationTowerLubricationHandler::new);
+    	if(ELConfig.doFermenter.get()) LubricatedHandler.registerLubricatedTile(FermenterTileEntity.class, FermenterLubricationHandler::new);
+    	if(ELConfig.doMixer.get()) LubricatedHandler.registerLubricatedTile(MixerTileEntity.class, MixerLubricationHandler::new);
+    	if(ELConfig.doPress.get()) LubricatedHandler.registerLubricatedTile(MetalPressTileEntity.class, PressLubricationHandler::new);
+    	if(ELConfig.doRefinery.get()) LubricatedHandler.registerLubricatedTile(RefineryTileEntity.class, RefineryLubricationHandler::new);
+    	if(ELConfig.doSqueezer.get()) LubricatedHandler.registerLubricatedTile(SqueezerTileEntity.class, SqueezerLubricationHandler::new);
+    	if(ELConfig.doSulfurRecovery.get()) LubricatedHandler.registerLubricatedTile(HydrotreaterTileEntity.class, HydroTreaterLubricationHandler::new);
+    	if(ELConfig.doCrusherReplace.get()) LubricatedHandler.registerLubricatedTile(CrusherTileEntity.class, CrusherLubricationHandlerEL::new);
+    	if(ELConfig.doExcavatorReplace.get()) LubricatedHandler.registerLubricatedTile(ExcavatorTileEntity.class, ExcavatorLubricationHandlerEL::new);
+    	if(ELConfig.doPumpjackReplace.get()) LubricatedHandler.registerLubricatedTile(PumpjackTileEntity.class, PumpjackLubricationHandlerEL::new);
     	FluidTagsEL.overwrite();
 	}
 
