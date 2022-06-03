@@ -24,7 +24,26 @@ public class FluidTagsEL {
 	
 	
 	public static void init() {
+		ExpandedLubrication.LOGGER.info("Loading fluid tags.");
 		ExpandedLubrication.LOGGER.info("Registering New lubes.");
+//		try {
+//			Field lubricants = LubricantHandler.class.getDeclaredField("lubricants");
+//			lubricants.setAccessible(true);
+//			Set<Pair<ITag<Fluid>, Integer>> newLubricants = new HashSet<>();
+//			lubricants.set(lubricants, newLubricants);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+		LubricantHandler.register(LUBE_TIER_1, ELConfig.tier_1_cons.get());
+		LubricantHandler.register(LUBE_TIER_2, ELConfig.tier_2_cons.get());
+		LubricantHandler.register(LUBE_TIER_3, ELConfig.tier_3_cons.get());
+		LubricantHandler.register(LUBE_TIER_4, ELConfig.tier_4_cons.get());
+		
+		
+	}
+	
+	public static void overwrite() {
 		try {
 			Field lubricants = LubricantHandler.class.getDeclaredField("lubricants");
 			lubricants.setAccessible(true);
@@ -39,6 +58,5 @@ public class FluidTagsEL {
 		LubricantHandler.register(LUBE_TIER_3, ELConfig.tier_3_cons.get());
 		LubricantHandler.register(LUBE_TIER_4, ELConfig.tier_4_cons.get());
 		
-		ExpandedLubrication.LOGGER.info("Registered New lubes.");
 	}
 }

@@ -86,7 +86,7 @@ public class HydroTreaterLubricationHandler extends TieredLubricationHandler<Aut
 //			System.out.println("success2");
 //			MultiblockProcess<SulfurRecoveryRecipe> process = processIterator.next();
 			if(fluid != null)
-			tierProcess(fluid, null, null, mbte, ticks);
+			tierProcess(fluid, null, null, mbte, ticks, world);
 		}else{
 //			mbte.animation_agitator += 18f / 4f;
 //			mbte.animation_agitator %= 360f;
@@ -95,7 +95,7 @@ public class HydroTreaterLubricationHandler extends TieredLubricationHandler<Aut
 	}
 	
 	@Override
-	public boolean process(Iterator<MultiblockProcess<SulfurRecoveryRecipe>> processIterator, MultiblockProcess<SulfurRecoveryRecipe> process, HydrotreaterTileEntity mbte) {
+	public boolean process(Iterator<MultiblockProcess<SulfurRecoveryRecipe>> processIterator, MultiblockProcess<SulfurRecoveryRecipe> process, HydrotreaterTileEntity mbte, int ticks, World world) {
 		mbte.tick();
 //		int consume = mbte.energyStorage.extractEnergy(process.energyPerTick, true);
 		System.out.println("attempt " + mbte.toString());
@@ -166,42 +166,42 @@ public class HydroTreaterLubricationHandler extends TieredLubricationHandler<Aut
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderPipes(AutoLubricatorTileEntity lubricator, HydrotreaterTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
-		matrix.translate(0, -1, 0);
-		Vector3i offset = mbte.getBlockPos().subtract(lubricator.getBlockPos());
-		matrix.translate(offset.getX(), offset.getY(), offset.getZ());
-		
-		Direction rotation = mbte.getFacing();
-		switch(rotation){
-			case NORTH:{
-//				matrix.rotate(new Quaternion(0, 90F, 0, true));
-				matrix.translate(-1, 0, 0);
-				break;
-			}
-			case SOUTH:{
-//				matrix.rotate(new Quaternion(0, 270F, 0, true));
-				matrix.translate(0, 0, -1);
-				break;
-			}
-			case EAST:{
-				matrix.translate(0, 0, 0);
-				break;
-			}
-			case WEST:{
-//				matrix.rotate(new Quaternion(0, 180F, 0, true));
-				matrix.translate(-1, 0, -1);
-				break;
-			}
-			default:
-				break;
-		}
-		
-		if(pipes == null)
-			pipes = IPModels.getSupplier(ModelLubricantPipes.Crusher.ID);
-		
-		IPModel model;
-		if((model = pipes.get()) != null){
-			model.renderToBuffer(matrix, buffer.getBuffer(model.renderType(TEXTURE)), combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
-		}
+//		matrix.translate(0, -1, 0);
+//		Vector3i offset = mbte.getBlockPos().subtract(lubricator.getBlockPos());
+//		matrix.translate(offset.getX(), offset.getY(), offset.getZ());
+//		
+//		Direction rotation = mbte.getFacing();
+//		switch(rotation){
+//			case NORTH:{
+////				matrix.rotate(new Quaternion(0, 90F, 0, true));
+//				matrix.translate(-1, 0, 0);
+//				break;
+//			}
+//			case SOUTH:{
+////				matrix.rotate(new Quaternion(0, 270F, 0, true));
+//				matrix.translate(0, 0, -1);
+//				break;
+//			}
+//			case EAST:{
+//				matrix.translate(0, 0, 0);
+//				break;
+//			}
+//			case WEST:{
+////				matrix.rotate(new Quaternion(0, 180F, 0, true));
+//				matrix.translate(-1, 0, -1);
+//				break;
+//			}
+//			default:
+//				break;
+//		}
+//		
+//		if(pipes == null)
+//			pipes = IPModels.getSupplier(ModelLubricantPipes.Crusher.ID);
+//		
+//		IPModel model;
+//		if((model = pipes.get()) != null){
+//			model.renderToBuffer(matrix, buffer.getBuffer(model.renderType(TEXTURE)), combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+//		}
 	}
 	
 	@Override

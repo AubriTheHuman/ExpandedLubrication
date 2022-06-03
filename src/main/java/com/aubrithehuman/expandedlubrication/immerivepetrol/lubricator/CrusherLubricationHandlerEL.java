@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import blusunrize.immersiveengineering.api.crafting.MixerRecipe;
+import blusunrize.immersiveengineering.api.crafting.CrusherRecipe;
 import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
-import blusunrize.immersiveengineering.common.blocks.metal.MixerTileEntity;
+import blusunrize.immersiveengineering.common.blocks.metal.CrusherTileEntity;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.client.model.IPModels;
@@ -31,9 +31,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubricatorTileEntity, MixerTileEntity, MixerRecipe>{
+public class CrusherLubricationHandlerEL extends TieredLubricationHandler<AutoLubricatorTileEntity, CrusherTileEntity, CrusherRecipe>{
 //	private static final float factor = AMIConfig.tier_1_factor.get();
-	private static Vector3i size = new Vector3i(3, 3, 3);
+	private static Vector3i size = new Vector3i(3, 3, 5);
 	
 	@Override
 	public Vector3i getStructureDimensions(){
@@ -45,8 +45,8 @@ public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubric
 		BlockPos target = lubricator.getBlockPos().relative(facing);
 		TileEntity te = world.getBlockEntity(target);
 		
-		if(te instanceof MixerTileEntity){
-			MixerTileEntity master = ((MixerTileEntity) te).master();
+		if(te instanceof CrusherTileEntity){
+			CrusherTileEntity master = ((CrusherTileEntity) te).master();
 			
 			if(master != null && master.getFacing().getOpposite() == facing){
 				return master;
@@ -57,7 +57,7 @@ public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubric
 	}
 	
 	@Override
-	public AutoLubricatorTileEntity getLubricatorTE(World world, MixerTileEntity mbte) {
+	public AutoLubricatorTileEntity getLubricatorTE(World world, CrusherTileEntity mbte) {
 		if(!world.isClientSide){
 			
 			TileEntity lubricator = null;
@@ -76,21 +76,21 @@ public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubric
 	}
 	
 	@Override
-	public void lubricateWithFluid(World world, int ticks, Fluid fluid, MixerTileEntity mbte) {
+	public void lubricateWithFluid(World world, int ticks, Fluid fluid, CrusherTileEntity mbte) {
 //		AMICore.LOGGER.info(factor);
 		if(!world.isClientSide){	
-			Iterator<MultiblockProcess<MixerRecipe>> processIterator = mbte.processQueue.iterator();
-			MultiblockProcess<MixerRecipe> process = processIterator.next();
+			Iterator<MultiblockProcess<CrusherRecipe>> processIterator = mbte.processQueue.iterator();
+			MultiblockProcess<CrusherRecipe> process = processIterator.next();
 			tierProcess(fluid, processIterator, process, mbte, ticks, world);
 		}else{
-			mbte.animation_agitator += 18f / 4f;
-			mbte.animation_agitator %= 360f;
+			mbte.animation_barrelRotation += 18f / 4f;
+			mbte.animation_barrelRotation %= 360f;
 		}
 		
 	}
 		
 	@Override
-	public void spawnLubricantParticles(World world, AutoLubricatorTileEntity lubricator, Direction facing, MixerTileEntity mbte){
+	public void spawnLubricantParticles(World world, AutoLubricatorTileEntity lubricator, Direction facing, CrusherTileEntity mbte){
 		Direction f = mbte.getIsMirrored() ? facing : facing.getOpposite();
 		
 		float location = world.random.nextFloat();
@@ -125,7 +125,7 @@ public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubric
 	}
 	
 	@Override
-	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, MixerTileEntity mbte){
+	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, CrusherTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
 			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing(), 2);
@@ -140,7 +140,7 @@ public class MixerLubricationHandler extends TieredLubricationHandler<AutoLubric
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderPipes(AutoLubricatorTileEntity lubricator, MixerTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
+	public void renderPipes(AutoLubricatorTileEntity lubricator, CrusherTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
 //		matrix.translate(0, -1, 0);
 //		Vector3i offset = mbte.getBlockPos().subtract(lubricator.getBlockPos());
 //		matrix.translate(offset.getX(), offset.getY(), offset.getZ());

@@ -61,7 +61,7 @@ public abstract class TieredLubricationHandler<T extends TileEntity, L extends P
 		this.lubricateWithFluid(world, ticks, getLubricatorFluid((T) te), mbte);
 	}
 	
-	public void tierProcess(Fluid fluid, Iterator<MultiblockProcess<R>> processIterator, MultiblockProcess<R> process, L mbte, int ticks) {
+	public void tierProcess(Fluid fluid, Iterator<MultiblockProcess<R>> processIterator, MultiblockProcess<R> process, L mbte, int ticks, World world) {
 		double times = 0.0D;
 		if(fluid.is(FluidTagsEL.LUBE_TIER_1)) {
 			times = ELConfig.tier_1_factor.get();
@@ -73,23 +73,22 @@ public abstract class TieredLubricationHandler<T extends TileEntity, L extends P
 			times = ELConfig.tier_4_factor.get();
 		}
 		
-		System.out.println("doing " + times);
+//		System.out.println("doing " + times);
 		
 		int i;
 		for (i = 0; i < Math.floor(times); i++) {
-			process(processIterator, process, mbte);			
+			process(processIterator, process, mbte, ticks, world);			
 		}	
 		
 		if((times - (double) i) == 0) return;
 		
 		if (ticks % (1 / (times - (double) i)) == 0) {
-			process(processIterator, process, mbte);	
+			process(processIterator, process, mbte, ticks, world);	
 		}
 	}
 	
-	public boolean process(Iterator<MultiblockProcess<R>> processIterator, MultiblockProcess<R> process, L mbte) {
+	public boolean process(Iterator<MultiblockProcess<R>> processIterator, MultiblockProcess<R> process, L mbte, int ticks, World world) {
 		int consume = mbte.energyStorage.extractEnergy(process.energyPerTick, true);
-//		System.out.println("attempt");
 		if(consume >= process.energyPerTick){
 			mbte.energyStorage.extractEnergy(process.energyPerTick, false);
 			
