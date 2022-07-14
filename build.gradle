@@ -158,9 +158,15 @@ dependencies {
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:1.16.5-5.1.0-148")
 	//datagenCompile fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:1.16.5-5.1.0-148:datagen")
     
-    runtimeOnly fg.deobf("curse.maven:immersivepetroleum-268250:3608210") // IP
-    compileOnly fg.deobf("curse.maven:immersivepetroleum-268250:3608210")
+    compileOnly fg.deobf("curse.maven:immersivepetroleum-268250:3872407")
 
+
+    runtimeOnly fg.deobf("curse.maven:immersive-geology-370614:3655622") // IG
+    compileOnly fg.deobf("curse.maven:immersive-geology-370614:3655622")
+    
+    
+    runtimeOnly fg.deobf("curse.maven:immersive-industry-542053:3651536") // II
+    compileOnly fg.deobf("curse.maven:immersive-industry-542053:3651536")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

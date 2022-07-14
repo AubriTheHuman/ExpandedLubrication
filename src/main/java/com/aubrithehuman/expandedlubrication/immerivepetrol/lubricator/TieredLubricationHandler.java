@@ -5,14 +5,18 @@ import java.util.Iterator;
 import com.aubrithehuman.expandedlubrication.config.ELConfig;
 import com.aubrithehuman.expandedlubrication.fluids.FluidTagsEL;
 
+import blusunrize.immersiveengineering.api.crafting.ArcFurnaceRecipe;
 import blusunrize.immersiveengineering.api.crafting.MultiblockRecipe;
 import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity;
 import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
+import blusunrize.immersiveengineering.common.blocks.metal.ArcFurnaceTileEntity;
 import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler.ILubricationHandler;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
@@ -24,41 +28,24 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public abstract class TieredLubricationHandler<T extends TileEntity, L extends PoweredMultiblockTileEntity<L, R>, R extends MultiblockRecipe> implements ILubricationHandler<L>{
 
-	/**
-	 * define in each handler, checks for position of lubricator to get contents from lubricator
-	 * @param world
-	 * @param mbte
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public abstract T getLubricatorTE(World world, L mbte); 
-	
-	/**
-	 * Modifed lubricate method
-	 */
-	public abstract void lubricateWithFluid(World world, int ticks, Fluid fluid, L mbte);
-	
-	public Fluid getLubricatorFluid(T lubricator) {
-		if(((AutoLubricatorTileEntity) lubricator).isMaster()) {
-			if((((AutoLubricatorTileEntity) lubricator).tank.getFluid() != null && ((AutoLubricatorTileEntity) lubricator).tank.getFluid() != FluidStack.EMPTY)) {
-				return ((AutoLubricatorTileEntity) lubricator).tank.getFluid().getFluid();
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * Lubricate method, with lubricator check
-	 * 
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public void lubricate(World world, int ticks, L mbte) {
-		TileEntity te = getLubricatorTE(world, mbte);
-//		System.out.println("lubricate");
-		if(te == null) return;
-//		System.out.println("attempt2");
-		this.lubricateWithFluid(world, ticks, getLubricatorFluid((T) te), mbte);
+	public void lubricate(World arg0, int arg1, L arg2) { }
+
+	@Override
+	public void lubricate(World arg0, Fluid arg1, int arg2, L arg3) { }
+	
+	@Override
+	public void lubricateClient(ClientWorld arg0, Fluid arg1, int arg2, L arg3) {
+		
+	}
+
+	@Override
+	public void lubricateServer(ServerWorld world, Fluid lubricant, int ticks, L mbte) {
+		Iterator<MultiblockProcess<R>> processIterator = mbte.processQueue.iterator();
+		MultiblockProcess<R> process = null;
+		if(processIterator.hasNext()) process = processIterator.next();
+		
+		tierProcess(lubricant, processIterator, process, mbte, ticks, world);		
 	}
 	
 	public void tierProcess(Fluid fluid, Iterator<MultiblockProcess<R>> processIterator, MultiblockProcess<R> process, L mbte, int ticks, World world) {

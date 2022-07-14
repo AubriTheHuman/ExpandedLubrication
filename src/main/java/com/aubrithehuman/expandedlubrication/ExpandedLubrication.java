@@ -5,19 +5,37 @@ import org.apache.logging.log4j.Logger;
 
 import com.aubrithehuman.expandedlubrication.config.ELConfig;
 import com.aubrithehuman.expandedlubrication.fluids.FluidTagsEL;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ArcFurnaceLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.AutoWorkbenchLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.CokerLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.CrusherLubricationHandlerEL;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.DistillationTowerLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ExcavatorLubricationHandlerEL;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.FermenterLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.HydroTreaterLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.MixerLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.PressLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.PumpjackLubricationHandlerEL;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.RefineryLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.SqueezerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.AlloySmelterLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.ArcFurnaceLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.AutoWorkbenchLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.BlastFurnaceAdvancedLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.CokeOvenLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.CrudeBlastFurnaceLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.CrusherLubricationHandlerEL;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.ExcavatorLubricationHandlerEL;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.FermenterLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.MixerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.PressLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.RefineryLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.SqueezerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.ChemicalVatLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.CrystallizerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.GravitySeparatorLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.ReverberationLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.RotaryKilnLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.CrucibleLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.ElectrolyzerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.CokerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.DistillationTowerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.HydroTreaterLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.PumpjackLubricationHandlerEL;
+import com.igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
+import com.igteam.immersive_geology.common.block.tileentity.CrystallizerTileEntity;
+import com.igteam.immersive_geology.common.block.tileentity.GravitySeparatorTileEntity;
+import com.igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
+import com.igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
+import com.teammoeg.immersiveindustry.content.crucible.CrucibleTileEntity;
+import com.teammoeg.immersiveindustry.content.electrolyzer.IndustrialElectrolyzerTileEntity;
 
 import blusunrize.immersiveengineering.common.blocks.metal.ArcFurnaceTileEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.AutoWorkbenchTileEntity;
@@ -28,6 +46,10 @@ import blusunrize.immersiveengineering.common.blocks.metal.MetalPressTileEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.MixerTileEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.RefineryTileEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.SqueezerTileEntity;
+import blusunrize.immersiveengineering.common.blocks.stone.AlloySmelterTileEntity;
+import blusunrize.immersiveengineering.common.blocks.stone.BlastFurnaceAdvancedTileEntity;
+import blusunrize.immersiveengineering.common.blocks.stone.BlastFurnaceTileEntity;
+import blusunrize.immersiveengineering.common.blocks.stone.CokeOvenTileEntity;
 import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
@@ -38,6 +60,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
@@ -117,19 +140,59 @@ public class ExpandedLubrication
     }
     
     public void loadComplete(FMLLoadCompleteEvent event){
-    	if(ELConfig.doArcFurnace.get()) LubricatedHandler.registerLubricatedTile(ArcFurnaceTileEntity.class, ArcFurnaceLubricationHandler::new);
-    	if(ELConfig.doAutoEngineerWorkbench.get()) LubricatedHandler.registerLubricatedTile(AutoWorkbenchTileEntity.class, AutoWorkbenchLubricationHandler::new);
-    	if(ELConfig.doCoker.get()) LubricatedHandler.registerLubricatedTile(CokerUnitTileEntity.class, CokerLubricationHandler::new);
-    	if(ELConfig.doDistillationTower.get()) LubricatedHandler.registerLubricatedTile(DistillationTowerTileEntity.class, DistillationTowerLubricationHandler::new);
-    	if(ELConfig.doFermenter.get()) LubricatedHandler.registerLubricatedTile(FermenterTileEntity.class, FermenterLubricationHandler::new);
-    	if(ELConfig.doMixer.get()) LubricatedHandler.registerLubricatedTile(MixerTileEntity.class, MixerLubricationHandler::new);
-    	if(ELConfig.doPress.get()) LubricatedHandler.registerLubricatedTile(MetalPressTileEntity.class, PressLubricationHandler::new);
-    	if(ELConfig.doRefinery.get()) LubricatedHandler.registerLubricatedTile(RefineryTileEntity.class, RefineryLubricationHandler::new);
-    	if(ELConfig.doSqueezer.get()) LubricatedHandler.registerLubricatedTile(SqueezerTileEntity.class, SqueezerLubricationHandler::new);
-    	if(ELConfig.doSulfurRecovery.get()) LubricatedHandler.registerLubricatedTile(HydrotreaterTileEntity.class, HydroTreaterLubricationHandler::new);
-    	if(ELConfig.doCrusherReplace.get()) LubricatedHandler.registerLubricatedTile(CrusherTileEntity.class, CrusherLubricationHandlerEL::new);
-    	if(ELConfig.doExcavatorReplace.get()) LubricatedHandler.registerLubricatedTile(ExcavatorTileEntity.class, ExcavatorLubricationHandlerEL::new);
-    	if(ELConfig.doPumpjackReplace.get()) LubricatedHandler.registerLubricatedTile(PumpjackTileEntity.class, PumpjackLubricationHandlerEL::new);
+    	if(ModList.get().isLoaded("immersiveengineering")) {
+    		int i = 0;
+    		//IE Machines
+        	if(ELConfig.doArcFurnace.get()) { LubricatedHandler.registerLubricatedTile(ArcFurnaceTileEntity.class, ArcFurnaceLubricationHandler::new); i++; }
+        	if(ELConfig.doAutoEngineerWorkbench.get()) { LubricatedHandler.registerLubricatedTile(AutoWorkbenchTileEntity.class, AutoWorkbenchLubricationHandler::new); i++; }
+        	if(ELConfig.doFermenter.get()) { LubricatedHandler.registerLubricatedTile(FermenterTileEntity.class, FermenterLubricationHandler::new); i++; }
+        	if(ELConfig.doMixer.get()) { LubricatedHandler.registerLubricatedTile(MixerTileEntity.class, MixerLubricationHandler::new); i++; }
+        	if(ELConfig.doPress.get()) { LubricatedHandler.registerLubricatedTile(MetalPressTileEntity.class, PressLubricationHandler::new); i++; }
+        	if(ELConfig.doRefinery.get()) { LubricatedHandler.registerLubricatedTile(RefineryTileEntity.class, RefineryLubricationHandler::new); i++; }
+        	if(ELConfig.doSqueezer.get()) { LubricatedHandler.registerLubricatedTile(SqueezerTileEntity.class, SqueezerLubricationHandler::new); i++; }
+        	if(ELConfig.doCrusherReplace.get()) { LubricatedHandler.registerLubricatedTile(CrusherTileEntity.class, CrusherLubricationHandlerEL::new); i++; }
+        	if(ELConfig.doExcavatorReplace.get()) { LubricatedHandler.registerLubricatedTile(ExcavatorTileEntity.class, ExcavatorLubricationHandlerEL::new); i++; }
+        	LOGGER.info("Loaded " + i + " Immersive Engineering tiered lubrication handlers.");
+        	
+        	i = 0;
+        	//IE non-electric
+        	if(ELConfig.doCokeOven.get()) { LubricatedHandler.registerLubricatedTile(CokeOvenTileEntity.class, CokeOvenLubricationHandler::new); i++; }
+        	if(ELConfig.doCrudeBlastFurnace.get()) { LubricatedHandler.registerLubricatedTile(BlastFurnaceTileEntity.class, CrudeBlastFurnaceLubricationHandler::new); i++; }
+        	if(ELConfig.doBlastFurnace.get()) { LubricatedHandler.registerLubricatedTile(BlastFurnaceAdvancedTileEntity.class, BlastFurnaceAdvancedLubricationHandler::new); i++; }
+        	if(ELConfig.doAlloySmelter.get()) { LubricatedHandler.registerLubricatedTile(AlloySmelterTileEntity.class, AlloySmelterLubricationHandler::new); i++; }
+        	LOGGER.info("Loaded " + i + " Non-Electric Immersive Engineering tiered lubrication handlers.");
+    	}
+
+    	if(ModList.get().isLoaded("immersivepetroleum")) {
+    		int i = 0;
+    		//IP machines
+	    	if(ELConfig.doCoker.get()) { LubricatedHandler.registerLubricatedTile(CokerUnitTileEntity.class, CokerLubricationHandler::new); i++; }
+	    	if(ELConfig.doDistillationTower.get()) { LubricatedHandler.registerLubricatedTile(DistillationTowerTileEntity.class, DistillationTowerLubricationHandler::new); i++; }
+	    	if(ELConfig.doSulfurRecovery.get()) { LubricatedHandler.registerLubricatedTile(HydrotreaterTileEntity.class, HydroTreaterLubricationHandler::new); i++; }
+	    	if(ELConfig.doPumpjackReplace.get()) { LubricatedHandler.registerLubricatedTile(PumpjackTileEntity.class, PumpjackLubricationHandlerEL::new); i++; }
+	    	LOGGER.info("Loaded " + i + " Immersive Petroleum tiered lubrication handlers.");
+    	}
+
+    	if(ModList.get().isLoaded("immersive_geology")) {
+    		int i = 0;
+    		//IG machines
+	    	if(ELConfig.doReverberation.get()) { LubricatedHandler.registerLubricatedTile(ReverberationFurnaceTileEntity.class, ReverberationLubricationHandler::new); i++; }
+	    	if(ELConfig.doRotaryKiln.get()) { LubricatedHandler.registerLubricatedTile(RotaryKilnTileEntity.class, RotaryKilnLubricationHandler::new); i++; }
+	    	if(ELConfig.doGravitySeparator.get()) { LubricatedHandler.registerLubricatedTile(GravitySeparatorTileEntity.class, GravitySeparatorLubricationHandler::new); i++; }
+	    	if(ELConfig.doCrystallizer.get()) { LubricatedHandler.registerLubricatedTile(CrystallizerTileEntity.class, CrystallizerLubricationHandler::new); i++; }
+	    	if(ELConfig.doChemicalVat.get()) { LubricatedHandler.registerLubricatedTile(ChemicalVatTileEntity.class, ChemicalVatLubricationHandler::new); i++; }
+	    	LOGGER.info("Loaded " + i + " Immersive Geology tiered lubrication handlers.");
+    	}
+    	
+
+    	if(ModList.get().isLoaded("immersiveindustry")) {
+    		int i = 0;
+    		//II machines
+	    	if(ELConfig.doCrucible.get()) { LubricatedHandler.registerLubricatedTile(CrucibleTileEntity.class, CrucibleLubricationHandler::new); i++; }
+	    	if(ELConfig.doElectrolyzer.get()) { LubricatedHandler.registerLubricatedTile(IndustrialElectrolyzerTileEntity.class, ElectrolyzerLubricationHandler::new); i++; }
+	    	LOGGER.info("Loaded " + i + " Immersive Industry tiered lubrication handlers.");
+    	}
+    	
     	FluidTagsEL.overwrite();
 	}
 

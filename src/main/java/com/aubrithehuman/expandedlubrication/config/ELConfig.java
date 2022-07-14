@@ -20,20 +20,39 @@ public final class ELConfig {
 	public static final ForgeConfigSpec.ConfigValue<Integer> tier_3_cons; 
 	public static final ForgeConfigSpec.ConfigValue<Integer> tier_4_cons; 
 	
+	//IE machines
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doArcFurnace; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doAutoEngineerWorkbench; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doCoker; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrusherReplace; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doDistillationTower; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doExcavatorReplace; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doFermenter; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doSulfurRecovery; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doMixer; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doPress; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doPumpjackReplace; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doRefinery; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doSqueezer; 
+	
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCokeOven; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrudeBlastFurnace; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doBlastFurnace; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doAlloySmelter; 
 
+	//IP machines
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCoker; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doDistillationTower; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doPumpjackReplace; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doSulfurRecovery; 
+	
+	//IG machines
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doReverberation; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doRotaryKiln; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doGravitySeparator; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrystallizer; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doChemicalVat; 
+	
+	//II machines
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrucible; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doElectrolyzer; 
+	
 	
 	static {
 		BUILDER.push("Lubricant speed factors");
@@ -51,20 +70,44 @@ public final class ELConfig {
 		tier_4_cons = BUILDER.comment("Consumption speed of tier 4 lubricants, calculated as n per every 4 ticks. Default: 4 (20/s)").define("Tier 4 Consumption", 4);
 		BUILDER.pop();
 		
-		BUILDER.push("Machine Toggles");
-		doArcFurnace = BUILDER.comment("Add functionality to Arc Furnace. Default: true").define("doArcFurnace", true);
-		doAutoEngineerWorkbench = BUILDER.comment("Add functionality to Automated Engineers Workbench. Default: true").define("doAutoEngineerWorkbench", true);
-		doCoker = BUILDER.comment("Add functionality to Coker. Default: true").define("doCoker", true);
-		doCrusherReplace = BUILDER.comment("Add functionality to Crusher, replacing default behavior. Default: true").define("doCrusher", true);
-		doDistillationTower = BUILDER.comment("Add functionality to Distillation Tower. Default: true").define("doDistillationTower", true);
-		doExcavatorReplace = BUILDER.comment("Add functionality to Excavator, replacing default behavior. Default: true").define("doExcavatorReplace", true);
-		doFermenter = BUILDER.comment("Add functionality to Fermenter. Default: true").define("doFermenter", true);
-		doSulfurRecovery = BUILDER.comment("Add functionality to Sulfur Recovery Unit/Hyrdrotreater. Default: true").define("doSulfurRecovery", true);
-		doMixer = BUILDER.comment("Add functionality to Mixer. Default: true").define("doMixer", true);
-		doPress = BUILDER.comment("Add functionality to Metal Press. Default: true").define("doMetalPress", true);
-		doPumpjackReplace = BUILDER.comment("Add functionality to Pumpjack, replacing default behavior. Default: true").define("doPumpjackReplace", true);
-		doRefinery = BUILDER.comment("Add functionality to Refinery. Default: true").define("doRefinery", true);
-		doSqueezer = BUILDER.comment("Add functionality to Squeezer. Default: true").define("doSqueezer", true);
+		BUILDER.push("Immersive Engineering Machine Toggles");
+		doArcFurnace = BUILDER.comment("Add tiered functionality to Arc Furnace. Default: true").define("doArcFurnace", true);
+		doAutoEngineerWorkbench = BUILDER.comment("Add tiered functionality to Automated Engineers Workbench. Default: true").define("doAutoEngineerWorkbench", true);
+		doCrusherReplace = BUILDER.comment("Add tiered functionality to Crusher, replacing default behavior. Default: true").define("doCrusher", true);
+		doExcavatorReplace = BUILDER.comment("Add tiered functionality to Excavator, replacing default behavior. Default: true").define("doExcavatorReplace", true);
+		doFermenter = BUILDER.comment("Add tiered functionality to Fermenter. Default: true").define("doFermenter", true);
+		doMixer = BUILDER.comment("Add tiered functionality to Mixer. Default: true").define("doMixer", true);
+		doPress = BUILDER.comment("Add tiered functionality to Metal Press. Default: true").define("doMetalPress", true);
+		doRefinery = BUILDER.comment("Add tiered functionality to Refinery. Default: true").define("doRefinery", true);
+		doSqueezer = BUILDER.comment("Add tiered functionality to Squeezer. Default: true").define("doSqueezer", true);
+		BUILDER.pop();
+		
+		BUILDER.push("Immersive Engineering Non-Electric Machine Toggles");
+		doCokeOven = BUILDER.comment("Add tiered functionality to Coke Oven. Default: true").define("doCokeOven", true);
+		doCrudeBlastFurnace = BUILDER.comment("Add tiered functionality to Crude Blast Furnace. Default: true").define("doCrudeBlastFurnace", true);
+		doBlastFurnace = BUILDER.comment("Add tiered functionality to Blast Furnace. Default: true").define("doBlastFurnace", true);
+		doAlloySmelter = BUILDER.comment("Add tiered functionality to Alloy Smelter. Default: true").define("doAlloySmelter", true);
+		BUILDER.pop();
+
+		BUILDER.push("Immersive Petroleum Machine Toggles");
+		doCoker = BUILDER.comment("Add tiered functionality to Coker. Default: true").define("doCoker", true);
+		doDistillationTower = BUILDER.comment("Add tiered functionality to Distillation Tower. Default: true").define("doDistillationTower", true);
+		doSulfurRecovery = BUILDER.comment("Add tiered functionality to Sulfur Recovery Unit/Hyrdrotreater. Default: true").define("doSulfurRecovery", true);
+		doPumpjackReplace = BUILDER.comment("Add tiered functionality to Pumpjack, replacing default behavior. Default: true").define("doPumpjackReplace", true);
+		BUILDER.pop();
+		
+		BUILDER.push("Immersive Geology Machine Toggles");
+		doReverberation = BUILDER.comment("Add tiered functionality to Reverberation Furnace. Default: true").define("doReverberation", true);
+		doRotaryKiln = BUILDER.comment("Add tiered functionality to Rotary Kiln. Default: true").define("doRotaryKiln", true);
+		doGravitySeparator = BUILDER.comment("Add tiered functionality to Gravity Separator. Default: true").define("doGravitySeparator", true);
+		doCrystallizer = BUILDER.comment("Add tiered functionality to Crystallizer. Default: true").define("doCrystallizer", true);
+		doChemicalVat = BUILDER.comment("Add tiered functionality to Chemical Vat. Default: true").define("doChemicalVat", true);
+		BUILDER.pop();
+		
+
+		BUILDER.push("Immersive Industry Machine Toggles");
+		doCrucible = BUILDER.comment("Add tiered functionality to Crucible. Default: true").define("doCrucible", true);
+		doElectrolyzer = BUILDER.comment("Add tiered functionality to Electrolyzer. Default: true").define("doElectrolyzer", true);
 		BUILDER.pop();
 		
 		SPEC = BUILDER.build();

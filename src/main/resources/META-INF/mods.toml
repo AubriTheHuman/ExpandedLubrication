@@ -34,10 +34,10 @@ credits="" #optional
 authors="AubriTheHuman" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Expands the lubrication system from ImmersivePetroleum by introducing lubricant tiers and functionality for most ImmersiveEngineering and ImmersivePetroleum machines.
+Expands the lubrication system from ImmersivePetroleum by introducing lubricant tiers and functionality for most ImmersiveEngineering and ImmersivePetroleum machines. As well as optional functionality for Immersive Geology and Immersive Industry.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.amicore]] #optional
+[[dependencies.expandedlubrication]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -49,24 +49,38 @@ Expands the lubrication system from ImmersivePetroleum by introducing lubricant 
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.amicore]]
+[[dependencies.expandedlubrication]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.amicore]]
+[[dependencies.expandedlubrication]]
     modId="immersiveengineering"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="[1.16.5-5.1.0-148]"
     ordering="NONE"
     side="BOTH"
-[[dependencies.amicore]]
+[[dependencies.expandedlubrication]]
     modId="immersivepetroleum"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.16.5-3.3.0-11]"
+    versionRange="[3.4.0-12]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.expandedlubrication]]
+    modId="immersive_geology"
+    mandatory=false
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[Beta v1.1 MC 1.16.5]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.expandedlubrication]]
+    modId="immersiveindustry"
+    mandatory=false
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[1.16.5-0.1.6d]"
     ordering="NONE"
     side="BOTH"
