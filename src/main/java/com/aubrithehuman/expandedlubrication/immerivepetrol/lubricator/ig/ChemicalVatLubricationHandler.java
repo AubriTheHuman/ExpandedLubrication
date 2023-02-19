@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.function.Supplier;
 
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.TieredLubricationHandler;
-import com.igteam.immersive_geology.api.crafting.recipes.recipe.VatRecipe;
-import com.igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
@@ -13,6 +11,8 @@ import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.common.IPContent.Fluids;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
+import igteam.api.processing.recipe.VatRecipe;
+import igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.world.ClientWorld;
@@ -25,7 +25,6 @@ import net.minecraft.util.Direction.AxisDirection;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;

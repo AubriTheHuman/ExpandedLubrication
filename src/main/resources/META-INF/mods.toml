@@ -67,20 +67,20 @@ Expands the lubrication system from ImmersivePetroleum by introducing lubricant 
     modId="immersivepetroleum"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[3.4.0-12]"
+    versionRange="[3.4.0-13]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.expandedlubrication]]
     modId="immersive_geology"
     mandatory=false
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[Beta v1.1 MC 1.16.5]"
+    versionRange="[Beta v1.5.2 MC 1.16.5]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.expandedlubrication]]
     modId="immersiveindustry"
     mandatory=false
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.16.5-0.1.6d]"
+    versionRange="[1.16.5-0.1.8f]"
     ordering="NONE"
     side="BOTH"

@@ -43,11 +43,12 @@ public final class ELConfig {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doSulfurRecovery; 
 	
 	//IG machines
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doReverberation; 
+//	public static final ForgeConfigSpec.ConfigValue<Boolean> doReverberation; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doRotaryKiln; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doGravitySeparator; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrystallizer; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doChemicalVat; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doHydroCutter; 
 	
 	//II machines
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrucible; 
@@ -57,17 +58,17 @@ public final class ELConfig {
 	static {
 		BUILDER.push("Lubricant speed factors");
 		
-		tier_1_factor = BUILDER.comment("Number of extra ticks tier 1 lubricants do. Default: 0.25 (1.25x speed)").define("Tier 1 factor", 0.25D);
-		tier_2_factor = BUILDER.comment("Number of extra ticks tier 2 lubricants do. Default: 0.5 (1.5x speed)").define("Tier 2 factor", 0.5D);
-		tier_3_factor = BUILDER.comment("Number of extra ticks tier 3 lubricants do. Default: 1 (2x speed)").define("Tier 3 factor", 1.0D);
-		tier_4_factor = BUILDER.comment("Number of extra ticks tier 4 lubricants do. Default: 3 (4x speed)").define("Tier 4 factor", 3.0D);
+		tier_1_factor = BUILDER.comment("Number of extra ticks tier 1 lubricants do. Must be > 0. Default: 0.25 (1.25x speed)").define("Tier 1 factor", 0.25D);
+		tier_2_factor = BUILDER.comment("Number of extra ticks tier 2 lubricants do. Must be > 0. Default: 0.5 (1.5x speed)").define("Tier 2 factor", 0.5D);
+		tier_3_factor = BUILDER.comment("Number of extra ticks tier 3 lubricants do. Must be > 0. Default: 1 (2x speed)").define("Tier 3 factor", 1.0D);
+		tier_4_factor = BUILDER.comment("Number of extra ticks tier 4 lubricants do. Must be > 0. Default: 3 (4x speed)").define("Tier 4 factor", 3.0D);
 		BUILDER.pop();
 
 		BUILDER.push("Lubricant consumption rates");
-		tier_1_cons = BUILDER.comment("Consumption speed of tier 1 lubricants, calculated as n per every 4 ticks. Default: 1 (5/s)").define("Tier 1 Consumption", 1);
-		tier_2_cons = BUILDER.comment("Consumption speed of tier 2 lubricants, calculated as n per every 4 ticks. Default: 2 (10/s)").define("Tier 2 Consumption", 2);
-		tier_3_cons = BUILDER.comment("Consumption speed of tier 3 lubricants, calculated as n per every 4 ticks. Default: 3 (15/s)").define("Tier 3 Consumption", 3);
-		tier_4_cons = BUILDER.comment("Consumption speed of tier 4 lubricants, calculated as n per every 4 ticks. Default: 4 (20/s)").define("Tier 4 Consumption", 4);
+		tier_1_cons = BUILDER.comment("Consumption speed of tier 1 lubricants, calculated as n per every 4 ticks. Must be an integer 1 or greater. Default: 1 (5/s)").define("Tier 1 Consumption", 1);
+		tier_2_cons = BUILDER.comment("Consumption speed of tier 2 lubricants, calculated as n per every 4 ticks. Must be an integer 1 or greater. Default: 2 (10/s)").define("Tier 2 Consumption", 2);
+		tier_3_cons = BUILDER.comment("Consumption speed of tier 3 lubricants, calculated as n per every 4 ticks. Must be an integer 1 or greater. Default: 3 (15/s)").define("Tier 3 Consumption", 3);
+		tier_4_cons = BUILDER.comment("Consumption speed of tier 4 lubricants, calculated as n per every 4 ticks. Must be an integer 1 or greater. Default: 4 (20/s)").define("Tier 4 Consumption", 4);
 		BUILDER.pop();
 		
 		BUILDER.push("Immersive Engineering Machine Toggles");
@@ -97,11 +98,12 @@ public final class ELConfig {
 		BUILDER.pop();
 		
 		BUILDER.push("Immersive Geology Machine Toggles");
-		doReverberation = BUILDER.comment("Add tiered functionality to Reverberation Furnace. Default: true").define("doReverberation", true);
+//		doReverberation = BUILDER.comment("Add tiered functionality to Reverberation Furnace. Default: true").define("doReverberation", true);
 		doRotaryKiln = BUILDER.comment("Add tiered functionality to Rotary Kiln. Default: true").define("doRotaryKiln", true);
 		doGravitySeparator = BUILDER.comment("Add tiered functionality to Gravity Separator. Default: true").define("doGravitySeparator", true);
 		doCrystallizer = BUILDER.comment("Add tiered functionality to Crystallizer. Default: true").define("doCrystallizer", true);
 		doChemicalVat = BUILDER.comment("Add tiered functionality to Chemical Vat. Default: true").define("doChemicalVat", true);
+		doHydroCutter = BUILDER.comment("Add tiered functionality to Hydrocutter. Default: true").define("doHydrocutter", true);
 		BUILDER.pop();
 		
 

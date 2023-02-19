@@ -1,28 +1,19 @@
 package com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie;
 
-import java.util.Iterator;
 import java.util.function.Supplier;
 
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.TieredLubricationHandler;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import blusunrize.immersiveengineering.api.crafting.ArcFurnaceRecipe;
-import blusunrize.immersiveengineering.api.crafting.MixerRecipe;
 import blusunrize.immersiveengineering.api.crafting.MultiblockRecipe;
-import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
-import blusunrize.immersiveengineering.common.blocks.metal.ArcFurnaceTileEntity;
-import blusunrize.immersiveengineering.common.blocks.metal.AutoWorkbenchTileEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.AutoWorkbenchTileEntity;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
-import flaxbeard.immersivepetroleum.client.model.IPModels;
-import flaxbeard.immersivepetroleum.client.model.ModelLubricantPipes;
 import flaxbeard.immersivepetroleum.common.IPContent.Fluids;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
@@ -34,7 +25,6 @@ import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
