@@ -4,19 +4,15 @@ import java.util.Iterator;
 import java.util.function.Supplier;
 
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.TieredLubricationHandler;
-import com.igteam.immersive_geology.api.crafting.recipes.recipe.CalcinationRecipe;
-import com.igteam.immersive_geology.api.crafting.recipes.recipe.ReverberationRecipe;
-import com.igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
-import com.igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import blusunrize.immersiveengineering.api.crafting.FermenterRecipe;
 import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
-import blusunrize.immersiveengineering.common.blocks.metal.FermenterTileEntity;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.common.IPContent.Fluids;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
+import igteam.api.processing.recipe.ReverberationRecipe;
+import igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.world.ClientWorld;
@@ -36,7 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ReverberationLubricationHandler extends TieredLubricationHandler<AutoLubricatorTileEntity, ReverberationFurnaceTileEntity, ReverberationRecipe>{
 //	private static final float factor = AMIConfig.tier_1_factor.get();
-	private static Vector3i size = new Vector3i(5, 5, 5);
+	private static Vector3i size = new Vector3i(6, 12, 6);
 	
 	@Override
 	public Vector3i getStructureDimensions(){
@@ -50,8 +46,10 @@ public class ReverberationLubricationHandler extends TieredLubricationHandler<Au
 		
 		if(te instanceof ReverberationFurnaceTileEntity){
 			ReverberationFurnaceTileEntity master = ((ReverberationFurnaceTileEntity) te).master();
-			
-			if(master != null && master.getFacing().getCounterClockWise() == facing){
+//			System.out.println(master.getFacing().getClockWise());
+//			System.out.println(facing);
+			if(master != null && master.getFacing().getClockWise() == facing){
+//				System.out.println("2!");
 				return master;
 			}
 		}
@@ -61,6 +59,7 @@ public class ReverberationLubricationHandler extends TieredLubricationHandler<Au
 	
 	@Override
 	public boolean process(Iterator<MultiblockProcess<ReverberationRecipe>> processIterator, MultiblockProcess<ReverberationRecipe> process, ReverberationFurnaceTileEntity mbte, int ticks, World world) {
+		System.out.println("ticking");
 		mbte.tick();
 //		int consume = mbte.energyStorage.extractEnergy(process.energyPerTick, true);
 ////		System.out.println("attempt");
@@ -118,8 +117,8 @@ public class ReverberationLubricationHandler extends TieredLubricationHandler<Au
 	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, ReverberationFurnaceTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
-			Direction f = mbte.getFacing().getCounterClockWise();
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getCounterClockWise()).relative(Direction.UP);
+			Direction f = mbte.getFacing().getClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}
 		return null;
