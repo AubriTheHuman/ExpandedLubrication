@@ -21,6 +21,7 @@ import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ie.Squeez
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.ChemicalVatLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.CrystallizerLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.GravitySeparatorLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.HydrocutterLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.ReverberationLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.RotaryKilnLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.CrucibleLubricationHandler;
@@ -29,11 +30,6 @@ import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.CokerL
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.DistillationTowerLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.HydroTreaterLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.PumpjackLubricationHandlerEL;
-import com.igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
-import com.igteam.immersive_geology.common.block.tileentity.CrystallizerTileEntity;
-import com.igteam.immersive_geology.common.block.tileentity.GravitySeparatorTileEntity;
-import com.igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
-import com.igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
 import com.teammoeg.immersiveindustry.content.crucible.CrucibleTileEntity;
 import com.teammoeg.immersiveindustry.content.electrolyzer.IndustrialElectrolyzerTileEntity;
 
@@ -55,6 +51,12 @@ import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEnti
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.HydrotreaterTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.PumpjackTileEntity;
+import igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
+import igteam.immersive_geology.common.block.tileentity.CrystallizerTileEntity;
+import igteam.immersive_geology.common.block.tileentity.GravitySeparatorTileEntity;
+import igteam.immersive_geology.common.block.tileentity.HydroJetCutterTileEntity;
+import igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
+import igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -176,11 +178,12 @@ public class ExpandedLubrication
     	if(ModList.get().isLoaded("immersive_geology")) {
     		int i = 0;
     		//IG machines
-	    	if(ELConfig.doReverberation.get()) { LubricatedHandler.registerLubricatedTile(ReverberationFurnaceTileEntity.class, ReverberationLubricationHandler::new); i++; }
+//	    	if(ELConfig.doReverberation.get()) { LubricatedHandler.registerLubricatedTile(ReverberationFurnaceTileEntity.class, ReverberationLubricationHandler::new); i++; }
 	    	if(ELConfig.doRotaryKiln.get()) { LubricatedHandler.registerLubricatedTile(RotaryKilnTileEntity.class, RotaryKilnLubricationHandler::new); i++; }
 	    	if(ELConfig.doGravitySeparator.get()) { LubricatedHandler.registerLubricatedTile(GravitySeparatorTileEntity.class, GravitySeparatorLubricationHandler::new); i++; }
 	    	if(ELConfig.doCrystallizer.get()) { LubricatedHandler.registerLubricatedTile(CrystallizerTileEntity.class, CrystallizerLubricationHandler::new); i++; }
 	    	if(ELConfig.doChemicalVat.get()) { LubricatedHandler.registerLubricatedTile(ChemicalVatTileEntity.class, ChemicalVatLubricationHandler::new); i++; }
+	    	if(ELConfig.doHydroCutter.get()) { LubricatedHandler.registerLubricatedTile(HydroJetCutterTileEntity.class, HydrocutterLubricationHandler::new); i++; }
 	    	LOGGER.info("Loaded " + i + " Immersive Geology tiered lubrication handlers.");
     	}
     	
