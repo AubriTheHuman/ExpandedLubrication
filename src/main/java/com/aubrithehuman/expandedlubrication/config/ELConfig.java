@@ -44,7 +44,7 @@ public final class ELConfig {
 	
 	//IG machines
 //	public static final ForgeConfigSpec.ConfigValue<Boolean> doReverberation; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doRotaryKiln; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doRotaryKilnIG; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doGravitySeparator; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrystallizer; 
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doChemicalVat; 
@@ -52,7 +52,9 @@ public final class ELConfig {
 	
 	//II machines
 	public static final ForgeConfigSpec.ConfigValue<Boolean> doCrucible; 
-	public static final ForgeConfigSpec.ConfigValue<Boolean> doElectrolyzer; 
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doElectrolyzer;
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doCarKiln;  
+	public static final ForgeConfigSpec.ConfigValue<Boolean> doRotaryKilnII; 
 	
 	
 	static {
@@ -99,7 +101,7 @@ public final class ELConfig {
 		
 		BUILDER.push("Immersive Geology Machine Toggles");
 //		doReverberation = BUILDER.comment("Add tiered functionality to Reverberation Furnace. Default: true").define("doReverberation", true);
-		doRotaryKiln = BUILDER.comment("Add tiered functionality to Rotary Kiln. Default: true").define("doRotaryKiln", true);
+		doRotaryKilnIG = BUILDER.comment("Add tiered functionality to the IG Rotary Kiln. Default: true").define("doRotaryKilnIG", true);
 		doGravitySeparator = BUILDER.comment("Add tiered functionality to Gravity Separator. Default: true").define("doGravitySeparator", true);
 		doCrystallizer = BUILDER.comment("Add tiered functionality to Crystallizer. Default: true").define("doCrystallizer", true);
 		doChemicalVat = BUILDER.comment("Add tiered functionality to Chemical Vat. Default: true").define("doChemicalVat", true);
@@ -110,6 +112,8 @@ public final class ELConfig {
 		BUILDER.push("Immersive Industry Machine Toggles");
 		doCrucible = BUILDER.comment("Add tiered functionality to Crucible. Default: true").define("doCrucible", true);
 		doElectrolyzer = BUILDER.comment("Add tiered functionality to Electrolyzer. Default: true").define("doElectrolyzer", true);
+		doRotaryKilnII = BUILDER.comment("Add tiered functionality to the II Rotary Kiln. Default: true").define("doRotaryKilnII", true);
+		doCarKiln = BUILDER.comment("Add tiered functionality to Car Kiln. Default: true").define("doCarKiln", true);
 		BUILDER.pop();
 		
 		SPEC = BUILDER.build();

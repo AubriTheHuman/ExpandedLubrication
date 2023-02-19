@@ -85,7 +85,7 @@ public class ElectrolyzerLubricationHandler implements ILubricationHandler<Indus
 		}
 		
 //		System.out.println("doing " + times);
-		
+//		
 		int i;
 		for (i = 0; i < Math.floor(times); i++) {
 			process(mbte, ticks, world);			
@@ -147,7 +147,7 @@ public class ElectrolyzerLubricationHandler implements ILubricationHandler<Indus
 	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, IndustrialElectrolyzerTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 2);
 			Direction f = mbte.getFacing().getCounterClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}

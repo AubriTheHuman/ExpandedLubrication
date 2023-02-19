@@ -125,7 +125,7 @@ public class CokerLubricationHandler extends TieredLubricationHandler<AutoLubric
 		if(!mbte.isDummy()){
 			mbte.getFacing();
 			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getOpposite(), 3).relative(Direction.UP, 1);
-			Direction f = mbte.getFacing().getCounterClockWise();
+			Direction f = mbte.getFacing();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}
 		return null;

@@ -47,7 +47,7 @@ public class CrystallizerLubricationHandler extends TieredLubricationHandler<Aut
 		if(te instanceof CrystallizerTileEntity){
 			CrystallizerTileEntity master = ((CrystallizerTileEntity) te).master();
 			
-			if(master != null && master.getFacing().getCounterClockWise() == facing){
+			if(master != null && master.getFacing().getClockWise() == facing){
 				return master;
 			}
 		}
@@ -114,8 +114,8 @@ public class CrystallizerLubricationHandler extends TieredLubricationHandler<Aut
 	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, CrystallizerTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
-			Direction f = mbte.getFacing().getCounterClockWise();
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getCounterClockWise(), 1).above();
+			Direction f = mbte.getFacing().getClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}
 		return null;

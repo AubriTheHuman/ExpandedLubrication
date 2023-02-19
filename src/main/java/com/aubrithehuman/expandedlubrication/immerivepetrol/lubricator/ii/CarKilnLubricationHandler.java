@@ -1,21 +1,21 @@
-package com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig;
+package com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii;
 
-import java.util.Iterator;
 import java.util.function.Supplier;
 
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.TieredLubricationHandler;
+import com.aubrithehuman.expandedlubrication.config.ELConfig;
+import com.aubrithehuman.expandedlubrication.fluids.FluidTagsEL;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.teammoeg.immersiveindustry.content.carkiln.CarKilnTileEntity;
 
-import blusunrize.immersiveengineering.common.blocks.generic.PoweredMultiblockTileEntity.MultiblockProcess;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
+import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler.ILubricationHandler;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.common.IPContent.Fluids;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
-import igteam.api.processing.recipe.CalcinationRecipe;
-import igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
@@ -27,15 +27,16 @@ import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class RotaryKilnLubricationHandler extends TieredLubricationHandler<AutoLubricatorTileEntity, RotaryKilnTileEntity, CalcinationRecipe>{
+public class CarKilnLubricationHandler implements ILubricationHandler<CarKilnTileEntity> {
 //	private static final float factor = AMIConfig.tier_1_factor.get();
 	private static Vector3i size = new Vector3i(5, 5, 5);
 	
 	@Override
-	public Vector3i getStructureDimensions(){
+	public Vector3i getStructureDimensions() {
 		return size; 
 	}
 	
@@ -44,8 +45,8 @@ public class RotaryKilnLubricationHandler extends TieredLubricationHandler<AutoL
 		BlockPos target = lubricator.getBlockPos().relative(facing);
 		TileEntity te = world.getBlockEntity(target);
 		
-		if(te instanceof RotaryKilnTileEntity){
-			RotaryKilnTileEntity master = ((RotaryKilnTileEntity) te).master();
+		if(te instanceof CarKilnTileEntity){
+			CarKilnTileEntity master = ((CarKilnTileEntity) te).master();
 			
 			if(master != null && master.getFacing().getCounterClockWise() == facing){
 				return master;
@@ -56,27 +57,59 @@ public class RotaryKilnLubricationHandler extends TieredLubricationHandler<AutoL
 	}
 	
 	@Override
-	public boolean process(Iterator<MultiblockProcess<CalcinationRecipe>> processIterator, MultiblockProcess<CalcinationRecipe> process, RotaryKilnTileEntity mbte, int ticks, World world) {
+	public void lubricate(World arg0, int arg1, CarKilnTileEntity arg2) { }
+
+	@Override
+	public void lubricate(World arg0, Fluid arg1, int arg2, CarKilnTileEntity arg3) { }
+	
+	@Override
+	public void lubricateClient(ClientWorld arg0, Fluid arg1, int arg2, CarKilnTileEntity arg3) {
+		
+	}
+
+	@Override
+	public void lubricateServer(ServerWorld world, Fluid lubricant, int ticks, CarKilnTileEntity mbte) {
+		tierProcess(lubricant, mbte, ticks, world);		
+	}
+	
+	public void tierProcess(Fluid fluid, CarKilnTileEntity mbte, int ticks, World world) {
+		double times = 0.0D;
+		if(fluid.is(FluidTagsEL.LUBE_TIER_1)) {
+			times = ELConfig.tier_1_factor.get();
+		} else if(fluid.is(FluidTagsEL.LUBE_TIER_2)) {
+			times = ELConfig.tier_2_factor.get();
+		} else if(fluid.is(FluidTagsEL.LUBE_TIER_3)) {
+			times = ELConfig.tier_3_factor.get();
+		} else if(fluid.is(FluidTagsEL.LUBE_TIER_4)) {
+			times = ELConfig.tier_4_factor.get();
+		}
+		
+//		System.out.println("doing " + times);
+		
+		int i;
+		for (i = 0; i < Math.floor(times); i++) {
+			process(mbte, ticks, world);			
+		}	
+		
+		if((times - (double) i) == 0) return;
+		
+		if (ticks % (1 / (times - (double) i)) == 0) {
+			process(mbte, ticks, world);	
+		}
+	}
+	
+	public boolean process(CarKilnTileEntity mbte, int ticks, World world) {
 		mbte.tick();
-//		int consume = mbte.energyStorage.extractEnergy(process.energyPerTick, true);
-////		System.out.println("attempt");
-//		if(consume >= process.energyPerTick){
-//			mbte.energyStorage.extractEnergy(process.energyPerTick, false);
-//			
-//			if(process.processTick < process.maxTicks) process.processTick++;
-//			
-//			if(process.processTick >= process.maxTicks && mbte.processQueue.size() > 1){
-//				process = processIterator.next();
-//				
-//				if(process.processTick < process.maxTicks) process.processTick++;
-//			}
-//		}
 		return true;
 	}
 	
+	@Override
+	public boolean isMachineEnabled(World world, CarKilnTileEntity mbte){
+		return mbte.process > 0;
+	}
 				
 	@Override
-	public void spawnLubricantParticles(ClientWorld world, AutoLubricatorTileEntity lubricator, Direction facing, RotaryKilnTileEntity mbte){
+	public void spawnLubricantParticles(ClientWorld world, AutoLubricatorTileEntity lubricator, Direction facing, CarKilnTileEntity mbte){
 		Direction f = mbte.getIsMirrored() ? facing : facing.getOpposite();
 		
 		float location = world.random.nextFloat();
@@ -111,10 +144,10 @@ public class RotaryKilnLubricationHandler extends TieredLubricationHandler<AutoL
 	}
 	
 	@Override
-	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, RotaryKilnTileEntity mbte){
+	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, CarKilnTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 2);
 			Direction f = mbte.getFacing().getCounterClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}
@@ -126,7 +159,7 @@ public class RotaryKilnLubricationHandler extends TieredLubricationHandler<AutoL
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderPipes(AutoLubricatorTileEntity lubricator, RotaryKilnTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
+	public void renderPipes(AutoLubricatorTileEntity lubricator, CarKilnTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
 //		matrix.translate(0, -1, 0);
 //		Vector3i offset = mbte.getBlockPos().subtract(lubricator.getBlockPos());
 //		matrix.translate(offset.getX(), offset.getY(), offset.getZ());

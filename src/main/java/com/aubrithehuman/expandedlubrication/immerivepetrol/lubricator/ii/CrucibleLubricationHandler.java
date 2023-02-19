@@ -48,7 +48,7 @@ public class CrucibleLubricationHandler   implements ILubricationHandler<Crucibl
 		if(te instanceof CrucibleTileEntity){
 			CrucibleTileEntity master = ((CrucibleTileEntity) te).master();
 			
-			if(master != null && master.getFacing().getCounterClockWise() == facing){
+			if(master != null && master.getFacing().getOpposite() == facing){
 				return master;
 			}
 		}
@@ -147,7 +147,7 @@ public class CrucibleLubricationHandler   implements ILubricationHandler<Crucibl
 	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, CrucibleTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 1).relative(mbte.getFacing(), 2);
 			Direction f = mbte.getFacing().getCounterClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}

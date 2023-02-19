@@ -114,7 +114,7 @@ public class GravitySeparatorLubricationHandler extends TieredLubricationHandler
 	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, GravitySeparatorTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3);
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 2).relative(Direction.UP);
 			Direction f = mbte.getFacing().getCounterClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}

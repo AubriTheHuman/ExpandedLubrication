@@ -11,8 +11,8 @@ import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.common.IPContent.Fluids;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
-import igteam.api.processing.recipe.VatRecipe;
-import igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
+import igteam.api.processing.recipe.CalcinationRecipe;
+import igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.world.ClientWorld;
@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ChemicalVatLubricationHandler extends TieredLubricationHandler<AutoLubricatorTileEntity, ChemicalVatTileEntity, VatRecipe>{
+public class RotaryKilnLubricationHandlerIG extends TieredLubricationHandler<AutoLubricatorTileEntity, RotaryKilnTileEntity, CalcinationRecipe>{
 //	private static final float factor = AMIConfig.tier_1_factor.get();
 	private static Vector3i size = new Vector3i(5, 5, 5);
 	
@@ -44,10 +44,10 @@ public class ChemicalVatLubricationHandler extends TieredLubricationHandler<Auto
 		BlockPos target = lubricator.getBlockPos().relative(facing);
 		TileEntity te = world.getBlockEntity(target);
 		
-		if(te instanceof ChemicalVatTileEntity){
-			ChemicalVatTileEntity master = ((ChemicalVatTileEntity) te).master();
+		if(te instanceof RotaryKilnTileEntity){
+			RotaryKilnTileEntity master = ((RotaryKilnTileEntity) te).master();
 			
-			if(master != null && master.getFacing().getOpposite() == facing){
+			if(master != null && master.getFacing().getCounterClockWise() == facing){
 				return master;
 			}
 		}
@@ -55,11 +55,28 @@ public class ChemicalVatLubricationHandler extends TieredLubricationHandler<Auto
 		return null;
 	}
 	
-	
+	@Override
+	public boolean process(Iterator<MultiblockProcess<CalcinationRecipe>> processIterator, MultiblockProcess<CalcinationRecipe> process, RotaryKilnTileEntity mbte, int ticks, World world) {
+		mbte.tick();
+//		int consume = mbte.energyStorage.extractEnergy(process.energyPerTick, true);
+////		System.out.println("attempt");
+//		if(consume >= process.energyPerTick){
+//			mbte.energyStorage.extractEnergy(process.energyPerTick, false);
+//			
+//			if(process.processTick < process.maxTicks) process.processTick++;
+//			
+//			if(process.processTick >= process.maxTicks && mbte.processQueue.size() > 1){
+//				process = processIterator.next();
+//				
+//				if(process.processTick < process.maxTicks) process.processTick++;
+//			}
+//		}
+		return true;
+	}
 	
 				
 	@Override
-	public void spawnLubricantParticles(ClientWorld world, AutoLubricatorTileEntity lubricator, Direction facing, ChemicalVatTileEntity mbte){
+	public void spawnLubricantParticles(ClientWorld world, AutoLubricatorTileEntity lubricator, Direction facing, RotaryKilnTileEntity mbte){
 		Direction f = mbte.getIsMirrored() ? facing : facing.getOpposite();
 		
 		float location = world.random.nextFloat();
@@ -94,11 +111,11 @@ public class ChemicalVatLubricationHandler extends TieredLubricationHandler<Auto
 	}
 	
 	@Override
-	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, ChemicalVatTileEntity mbte){
+	public Tuple<BlockPos, Direction> getGhostBlockPosition(World world, RotaryKilnTileEntity mbte){
 //		System.out.println("checkghost");
 		if(!mbte.isDummy()){
-			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getCounterClockWise(), 2).above().relative(mbte.getFacing(), 1);
-			Direction f = mbte.getFacing().getOpposite();
+			BlockPos pos = mbte.getBlockPos().relative(mbte.getFacing().getClockWise(), 3).relative(mbte.getFacing().getOpposite()).above();
+			Direction f = mbte.getFacing().getCounterClockWise();
 			return new Tuple<BlockPos, Direction>(pos, f);
 		}
 		return null;
@@ -109,7 +126,7 @@ public class ChemicalVatLubricationHandler extends TieredLubricationHandler<Auto
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderPipes(AutoLubricatorTileEntity lubricator, ChemicalVatTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
+	public void renderPipes(AutoLubricatorTileEntity lubricator, RotaryKilnTileEntity mbte, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay){
 //		matrix.translate(0, -1, 0);
 //		Vector3i offset = mbte.getBlockPos().subtract(lubricator.getBlockPos());
 //		matrix.translate(offset.getX(), offset.getY(), offset.getZ());
@@ -117,7 +134,7 @@ public class ChemicalVatLubricationHandler extends TieredLubricationHandler<Auto
 //		Direction rotation = mbte.getFacing();
 //		switch(rotation){
 //			case NORTH:{
-//				matrix.rotate(new Quaternion(0, 90F, 0, true));
+////				matrix.rotate(new Quaternion(0, 90F, 0, true));
 //				matrix.translate(-1, 0, 0);
 //				break;
 //			}

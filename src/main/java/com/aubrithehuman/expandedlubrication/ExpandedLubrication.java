@@ -22,14 +22,16 @@ import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.Chemic
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.CrystallizerLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.GravitySeparatorLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.HydrocutterLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.ReverberationLubricationHandler;
-import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.RotaryKilnLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ig.RotaryKilnLubricationHandlerIG;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.CarKilnLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.CrucibleLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.ElectrolyzerLubricationHandler;
+import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ii.RotaryKilnLubricationHandlerII;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.CokerLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.DistillationTowerLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.HydroTreaterLubricationHandler;
 import com.aubrithehuman.expandedlubrication.immerivepetrol.lubricator.ip.PumpjackLubricationHandlerEL;
+import com.teammoeg.immersiveindustry.content.carkiln.CarKilnTileEntity;
 import com.teammoeg.immersiveindustry.content.crucible.CrucibleTileEntity;
 import com.teammoeg.immersiveindustry.content.electrolyzer.IndustrialElectrolyzerTileEntity;
 
@@ -55,7 +57,6 @@ import igteam.immersive_geology.common.block.tileentity.ChemicalVatTileEntity;
 import igteam.immersive_geology.common.block.tileentity.CrystallizerTileEntity;
 import igteam.immersive_geology.common.block.tileentity.GravitySeparatorTileEntity;
 import igteam.immersive_geology.common.block.tileentity.HydroJetCutterTileEntity;
-import igteam.immersive_geology.common.block.tileentity.ReverberationFurnaceTileEntity;
 import igteam.immersive_geology.common.block.tileentity.RotaryKilnTileEntity;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -179,7 +180,7 @@ public class ExpandedLubrication
     		int i = 0;
     		//IG machines
 //	    	if(ELConfig.doReverberation.get()) { LubricatedHandler.registerLubricatedTile(ReverberationFurnaceTileEntity.class, ReverberationLubricationHandler::new); i++; }
-	    	if(ELConfig.doRotaryKiln.get()) { LubricatedHandler.registerLubricatedTile(RotaryKilnTileEntity.class, RotaryKilnLubricationHandler::new); i++; }
+	    	if(ELConfig.doRotaryKilnIG.get()) { LubricatedHandler.registerLubricatedTile(RotaryKilnTileEntity.class, RotaryKilnLubricationHandlerIG::new); i++; }
 	    	if(ELConfig.doGravitySeparator.get()) { LubricatedHandler.registerLubricatedTile(GravitySeparatorTileEntity.class, GravitySeparatorLubricationHandler::new); i++; }
 	    	if(ELConfig.doCrystallizer.get()) { LubricatedHandler.registerLubricatedTile(CrystallizerTileEntity.class, CrystallizerLubricationHandler::new); i++; }
 	    	if(ELConfig.doChemicalVat.get()) { LubricatedHandler.registerLubricatedTile(ChemicalVatTileEntity.class, ChemicalVatLubricationHandler::new); i++; }
@@ -193,6 +194,8 @@ public class ExpandedLubrication
     		//II machines
 	    	if(ELConfig.doCrucible.get()) { LubricatedHandler.registerLubricatedTile(CrucibleTileEntity.class, CrucibleLubricationHandler::new); i++; }
 	    	if(ELConfig.doElectrolyzer.get()) { LubricatedHandler.registerLubricatedTile(IndustrialElectrolyzerTileEntity.class, ElectrolyzerLubricationHandler::new); i++; }
+	    	if(ELConfig.doCarKiln.get()) { LubricatedHandler.registerLubricatedTile(CarKilnTileEntity.class, CarKilnLubricationHandler::new); i++; }
+	    	if(ELConfig.doRotaryKilnII.get()) { LubricatedHandler.registerLubricatedTile(com.teammoeg.immersiveindustry.content.rotarykiln.RotaryKilnTileEntity.class, RotaryKilnLubricationHandlerII::new); i++; }
 	    	LOGGER.info("Loaded " + i + " Immersive Industry tiered lubrication handlers.");
     	}
     	
